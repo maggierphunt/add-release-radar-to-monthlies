@@ -111,11 +111,12 @@ class MonthlyPlaylist(object):
 
         playlist_list_string = str(playlist_tracks_so_far)
 
-        #get release radar
-        release_radar = sp.playlist_items(playlist_id=release_radar_id)
 
         #get monthly playlist
         playlist_id=self.playlist_object_id
+
+        #get release radar
+        release_radar = sp.playlist_items(playlist_id=release_radar_id)
         
         #loop through release radar
         for item in release_radar['items']:
