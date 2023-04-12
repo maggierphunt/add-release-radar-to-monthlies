@@ -32,10 +32,9 @@ class MonthlyPlaylist(object):
         self.playlist_object_id = playlist_object_id
     pass
 
-##################################################################################################################################################################################
-#### dates
-
-    def make_playlist_name(self): #TODO: WHY IS THIS RUNNING TWICE?
+    def make_playlist_name(self): 
+        
+#TODO: WHY IS THIS RUNNING MuLTIPLE TIMES?!
 
         today = date.today()
         year= str(today.year)
@@ -51,24 +50,19 @@ class MonthlyPlaylist(object):
         playlist_name=year + "." + month_no + " " + month_name + " TEST"
         playlist_description="Monthly playlist for "+ month_name + " " +year
 
-
-        print(playlist_description+ " - Playlist name: " + playlist_name)
-
         self = MonthlyPlaylist(playlist_name, playlist_description, 0)
 
         return  self
 
-##################################################################################################################################################################################
-#### functions definition
-
     def check_for_monthly_playlist_function(self): #check if playlist for the month aready exists
 
+#TODO: WHY IS THIS RUNNING MuLTIPLE TIMES?!
         self = self.make_playlist_name(self)
 
         playlist_name_for_lookup = str(self.playlist_object_title)
 
         need_to_create = True
-
+    
         all_playlists = sp.current_user_playlists(limit=50, offset=0)
 
         for i, playlist in enumerate(all_playlists['items']):
@@ -93,7 +87,6 @@ class MonthlyPlaylist(object):
         playlist_name = str(self.playlist_object_title)
         playlist_description=str(self.playlist_object_description)
 
-       
         new_playlist= sp.user_playlist_create(user_id, playlist_name, public=True, collaborative=False, description=playlist_description)
         month_playlist_id=new_playlist['id']
         self.playlist_object_id = month_playlist_id
@@ -133,8 +126,6 @@ class MonthlyPlaylist(object):
             if str(track_id) not in playlist_list_string:
                 list_of_tracks_to_add_names.append(song_details)
                 list_of_tracks_to_add_IDs.append(track_id)          
-
- ###TODO: do not add if classical
         
         return self, list_of_tracks_to_add_IDs, list_of_tracks_to_add_names
 
@@ -151,9 +142,10 @@ class MonthlyPlaylist(object):
 
         for item in this_playlist['items']:
             track_id = item['track']['id']
-            playlist_tracks_so_far.append(track_id)
-
-        #if track not there, add to playlist
+            artist = sp.artist(item['track']["artists"][0]["external_urls"]["spotify"])
+            genres = artist["genres"]
+            if "classical" not in str(genres):
+                playlist_tracks_so_far.append(track_id)
 
         if list_of_tracks_to_add_IDs:
              sp.playlist_add_items(playlist_id, list_of_tracks_to_add_IDs, position=None)
