@@ -5,7 +5,6 @@ from spotipy.oauth2 import SpotifyOAuth
 import os
 from os import getenv
 from datetime import date
- 
 
 ##################################################################################################################################################################################
 #### Spotify params
@@ -24,7 +23,8 @@ user_id = sp.me()['id']
 list_of_tracks_to_add_IDs=[]
 list_of_tracks_to_add_names=[]
 
-
+##################################################################################################################################################################################
+#### class definition
 class MonthlyPlaylist(object):
     def __init__(self, playlist_object_title, playlist_object_description, playlist_object_id):
         self.playlist_object_title = playlist_object_title
@@ -32,6 +32,8 @@ class MonthlyPlaylist(object):
         self.playlist_object_id = playlist_object_id
     pass
 
+##################################################################################################################################################################################
+#### fuctions
     def make_playlist_name(self): #generate playlist name #>>>>>>>>>>>>>>>>>>>>>>>>>>TODO: WHY IS THIS RUNNING MULTIPLE TIMES?!
 
         today = date.today()
@@ -147,8 +149,7 @@ class MonthlyPlaylist(object):
         return "ok"
 
 #################################################################################################################################################################################
-### functions calling
-
+### calling function
 mp = MonthlyPlaylist
 
 mp.make_playlist_name(self=MonthlyPlaylist)
