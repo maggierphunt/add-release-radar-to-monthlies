@@ -32,9 +32,7 @@ class MonthlyPlaylist(object):
         self.playlist_object_id = playlist_object_id
     pass
 
-    def make_playlist_name(self): 
-        
-#TODO: WHY IS THIS RUNNING MuLTIPLE TIMES?!
+    def make_playlist_name(self): #generate playlist name #>>>>>>>>>>>>>>>>>>>>>>>>>>TODO: WHY IS THIS RUNNING MULTIPLE TIMES?!
 
         today = date.today()
         year= str(today.year)
@@ -47,16 +45,15 @@ class MonthlyPlaylist(object):
 
         month_name = today.strftime("%B")
 
-        playlist_name=year + "." + month_no + " " + month_name + " TEST"
+        playlist_name=year + "." + month_no + " " + month_name + " TESTING"
         playlist_description="Monthly playlist for "+ month_name + " " +year
 
         self = MonthlyPlaylist(playlist_name, playlist_description, 0)
 
         return  self
 
-    def check_for_monthly_playlist_function(self): #check if playlist for the month aready exists
+    def check_for_monthly_playlist_function(self): #check if playlist for the month aready exists #>>>>>>>>>>>>>>>>>>>>>>>>>>TODO: WHY IS THIS RUNNING MULTIPLE TIMES?!
 
-#TODO: WHY IS THIS RUNNING MuLTIPLE TIMES?!
         self = self.make_playlist_name(self)
 
         playlist_name_for_lookup = str(self.playlist_object_title)
@@ -78,8 +75,7 @@ class MonthlyPlaylist(object):
         print("Need to create new playlist? ", str(need_to_create))
 
         return self, need_to_create
-
-        
+    
     def create_monthly_playlist_function(self): #create monthly playlist
 
         self = self.make_playlist_name(self)
@@ -118,52 +114,34 @@ class MonthlyPlaylist(object):
         #get release radar
         release_radar = sp.playlist_items(playlist_id=release_radar_id)
 
+        #get monthly playlist
+        playlist_id=self.playlist_object_id
+        
         #loop through release radar
         for item in release_radar['items']:
             track_id = item['track']['id']
             song_details=str(item['track']['name'])+" - "+ str(item['track']['artists'][0]['name'])
-            
-            if str(track_id) not in playlist_list_string:
-                list_of_tracks_to_add_names.append(song_details)
-                list_of_tracks_to_add_IDs.append(track_id)          
-        
-        return self, list_of_tracks_to_add_IDs, list_of_tracks_to_add_names
-
-    def upsert_tracks_to_monthly_playlist(self):
-
-        self = self.get_tracks_on_release_radar(self)[0]
-
-        playlist_id=self.playlist_object_id
-
-        #check playlist for track
-        
-        this_playlist = sp.playlist_items(playlist_id=playlist_id)
-        playlist_tracks_so_far = []
-
-        for item in this_playlist['items']:
-            track_id = item['track']['id']
             artist = sp.artist(item['track']["artists"][0]["external_urls"]["spotify"])
             genres = artist["genres"]
             if "classical" not in str(genres):
-                playlist_tracks_so_far.append(track_id)
+                if str(track_id) not in playlist_list_string:
+                    list_of_tracks_to_add_names.append(song_details)
+                    list_of_tracks_to_add_IDs.append(track_id)          
+        
+        return self, list_of_tracks_to_add_IDs, list_of_tracks_to_add_names
+
+    def add_tracks_to_monthly_playlist(self): #WHY IS THIS RUNNING TWICE
+
+        self = self.get_tracks_on_release_radar(self)[0]
+
+        playlist_id=str(self.playlist_object_id)
 
         if list_of_tracks_to_add_IDs:
-             sp.playlist_add_items(playlist_id, list_of_tracks_to_add_IDs, position=None)
+            sp.playlist_add_items(playlist_id, list_of_tracks_to_add_IDs, position=None)
+            sp.current_user_saved_tracks_add(list_of_tracks_to_add_IDs)
+            print("Songs added to library: ", list_of_tracks_to_add_names)
         else:
             print("Nothing to add")
-
-        print("Songs added to playlist: ", list_of_tracks_to_add_names)
-
-        return "complete"
-
-    def add_songs_to_library(self):
-        
-        if list_of_tracks_to_add_IDs:
-            print("adding to library: ", list_of_tracks_to_add_names)
-            sp.current_user_saved_tracks_add(list_of_tracks_to_add_IDs)
-            print("added to library")
-        else:
-            print("nothing to add")
 
         return "ok"
 
@@ -184,6 +162,4 @@ else:
 
 mp.get_tracks_on_release_radar(self=MonthlyPlaylist)
 
-mp.upsert_tracks_to_monthly_playlist(self=MonthlyPlaylist)
-
-mp.add_songs_to_library(self=MonthlyPlaylist)
+mp.add_tracks_to_monthly_playlist(self=MonthlyPlaylist)
