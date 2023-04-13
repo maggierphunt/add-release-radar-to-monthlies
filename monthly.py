@@ -30,10 +30,12 @@ class MonthlyPlaylist(object):
         self.playlist_object_title = playlist_object_title
         self.playlist_object_description = playlist_object_description
         self.playlist_object_id = playlist_object_id
+    
+    
     pass
-
 ##################################################################################################################################################################################
 #### fuctions
+    
     def make_playlist_name(self): #generate playlist name
 
         today = date.today()
@@ -92,7 +94,7 @@ class MonthlyPlaylist(object):
         playlist_url=new_playlist['external_urls']['spotify']
         print("New playlist: "+ month_playlist_id+ " - "+ playlist_url)
 
-        return month_playlist_id
+        return self, month_playlist_id
 
     def get_tracks_on_release_radar(self): #return list of tracks to add
         
@@ -145,7 +147,7 @@ class MonthlyPlaylist(object):
         else:
             print("Nothing to add")
 
-        return "ok"
+        return self, "ok"
 
 #################################################################################################################################################################################
 ### calling function
