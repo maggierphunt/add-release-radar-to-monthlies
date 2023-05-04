@@ -63,7 +63,7 @@ class MonthlyPlaylist(object):
         playlist_name_for_lookup = str(self.playlist_object_title)
 
         need_to_create = True
-    
+### undownload prev month playlists from all hardware    
         all_playlists = sp.current_user_playlists(limit=50, offset=0)
 
         for i, playlist in enumerate(all_playlists['items']):
