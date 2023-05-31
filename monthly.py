@@ -37,7 +37,8 @@ class MonthlyPlaylist(object):
 #### fuctions
     
     def make_playlist_name_function(self): #generate playlist name
-
+        print("Running make_playlist_name_function(self)")
+        
         today = date.today()
         year= str(today.year)
 
@@ -57,7 +58,8 @@ class MonthlyPlaylist(object):
         return  self
 
     def check_for_monthly_playlist_function(self): #check if playlist for the month aready exists
-
+        print("Running check_for_monthly_playlist_function(self)")
+        
         self = self.make_playlist_name_function(self)
 
         playlist_name_for_lookup = str(self.playlist_object_title)
@@ -81,7 +83,8 @@ class MonthlyPlaylist(object):
         return self, need_to_create
     
     def create_monthly_playlist_function(self): #create monthly playlist
-
+        print("Running create_monthly_playlist_function(self)")
+        
         self = self.make_playlist_name_function(self)
         
         playlist_name = str(self.playlist_object_title)
@@ -97,6 +100,7 @@ class MonthlyPlaylist(object):
         return self, month_playlist_id
 
     def get_tracks_on_release_radar_function(self): #return list of tracks to add
+        print("Running get_tracks_on_release_radar_function(self)")
         
         if self.check_for_monthly_playlist_function(self)[1]:
             self = self.create_monthly_playlist_function(self)
@@ -135,6 +139,7 @@ class MonthlyPlaylist(object):
         return self, list_of_tracks_to_add_IDs, list_of_tracks_to_add_names
 
     def add_tracks_to_monthly_playlist_function(self):
+        print("Running add_tracks_to_monthly_playlist_function(self)")
 
         self = self.get_tracks_on_release_radar_function(self)[0]
 
