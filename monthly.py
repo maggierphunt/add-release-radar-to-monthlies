@@ -36,7 +36,7 @@ class MonthlyPlaylist(object):
 ##################################################################################################################################################################################
 #### fuctions
     
-    def make_playlist_name(self): #generate playlist name
+    def make_playlist_name_function(self): #generate playlist name
 
         today = date.today()
         year= str(today.year)
@@ -58,7 +58,7 @@ class MonthlyPlaylist(object):
 
     def check_for_monthly_playlist_function(self): #check if playlist for the month aready exists
 
-        self = self.make_playlist_name(self)
+        self = self.make_playlist_name_function(self)
 
         playlist_name_for_lookup = str(self.playlist_object_title)
 
@@ -82,7 +82,7 @@ class MonthlyPlaylist(object):
     
     def create_monthly_playlist_function(self): #create monthly playlist
 
-        self = self.make_playlist_name(self)
+        self = self.make_playlist_name_function(self)
         
         playlist_name = str(self.playlist_object_title)
         playlist_description=str(self.playlist_object_description)
@@ -96,7 +96,7 @@ class MonthlyPlaylist(object):
 
         return self, month_playlist_id
 
-    def get_tracks_on_release_radar(self): #return list of tracks to add
+    def get_tracks_on_release_radar_function(self): #return list of tracks to add
         
         if self.check_for_monthly_playlist_function(self)[1]:
             self = self.create_monthly_playlist_function(self)
@@ -134,9 +134,9 @@ class MonthlyPlaylist(object):
         
         return self, list_of_tracks_to_add_IDs, list_of_tracks_to_add_names
 
-    def add_tracks_to_monthly_playlist(self):
+    def add_tracks_to_monthly_playlist_function(self):
 
-        self = self.get_tracks_on_release_radar(self)[0]
+        self = self.get_tracks_on_release_radar_function(self)[0]
 
         playlist_id=str(self.playlist_object_id)
 
@@ -153,7 +153,7 @@ class MonthlyPlaylist(object):
 ### calling function
 mp = MonthlyPlaylist
 
-mp.make_playlist_name(self=MonthlyPlaylist)
+mp.make_playlist_name_function(self=MonthlyPlaylist)
 
 mp.check_for_monthly_playlist_function(self=MonthlyPlaylist)
 
@@ -163,6 +163,6 @@ if mp.check_for_monthly_playlist_function(self=MonthlyPlaylist)[1]:
 else:
     print("No new playlist required.")
 
-mp.get_tracks_on_release_radar(self=MonthlyPlaylist)
+mp.get_tracks_on_release_radar_function(self=MonthlyPlaylist)
 
-mp.add_tracks_to_monthly_playlist(self=MonthlyPlaylist)
+mp.add_tracks_to_monthly_playlist_function(self=MonthlyPlaylist)
