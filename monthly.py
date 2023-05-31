@@ -23,22 +23,23 @@ user_id = sp.me()['id']
 list_of_tracks_to_add_IDs=[]
 list_of_tracks_to_add_names=[]
 
+
 ##################################################################################################################################################################################
 #### class definition
-class MonthlyPlaylist(object):
+class MonthlyPlaylist:
+    
     def __init__(self, playlist_object_title, playlist_object_description, playlist_object_id):
         self.playlist_object_title = playlist_object_title
         self.playlist_object_description = playlist_object_description
         self.playlist_object_id = playlist_object_id
     
-    
-    pass
+    # pass
 ##################################################################################################################################################################################
 #### fuctions
     
     def make_playlist_name_function(self): #generate playlist name
         print("Running make_playlist_name_function(self)")
-        
+            
         today = date.today()
         year= str(today.year)
 
@@ -50,21 +51,26 @@ class MonthlyPlaylist(object):
 
         month_name = today.strftime("%B")
 
-        playlist_name=year + "." + month_no + " " + month_name + " TESTING"
+        playlist_name=year + "." + month_no + " " + month_name
         playlist_description="Monthly playlist for "+ month_name + " " +year
 
-        self = MonthlyPlaylist(playlist_name, playlist_description, 0)
-
-        return  self
+        #self = MonthlyPlaylist(playlist_name, playlist_description, 0)
+        self.playlist_object_title = playlist_name
+        self.playlist_object_description = playlist_description
+        self.playlist_object_id = 0
 
     def check_for_monthly_playlist_function(self): #check if playlist for the month aready exists
         print("Running check_for_monthly_playlist_function(self)")
         
-        self = self.make_playlist_name_function(self)
 
-        playlist_name_for_lookup = str(self.playlist_object_title)
+        # self = self.make_playlist_name_function(self)
+
+        # playlist_name_for_lookup = str(self.playlist_object_title)
 
         need_to_create = True
+        playlist_info = self.make_playlist_name_function(self)
+
+        playlist_name_for_lookup = str(self.playlist_object_title)
 ### undownload prev month playlists from all hardware    
         all_playlists = sp.current_user_playlists(limit=50, offset=0)
 
@@ -73,19 +79,20 @@ class MonthlyPlaylist(object):
                 self.playlist_object_id = playlist['id']
                 need_to_create = False
                 print("A playlist called "+ playlist_name_for_lookup+" already exists. ID: "+ self.playlist_object_id)
+                break
 
         if need_to_create:
             print("Please create a new playlist called "+playlist_name_for_lookup)
             self.playlist_object_id = 0
             
         print("Need to create new playlist? ", str(need_to_create))
-
-        return self, need_to_create
+   
+        return need_to_create
     
     def create_monthly_playlist_function(self): #create monthly playlist
         print("Running create_monthly_playlist_function(self)")
         
-        self = self.make_playlist_name_function(self)
+        # self = self.make_playlist_name_function(self)
         
         playlist_name = str(self.playlist_object_title)
         playlist_description=str(self.playlist_object_description)
@@ -97,15 +104,13 @@ class MonthlyPlaylist(object):
         playlist_url=new_playlist['external_urls']['spotify']
         print("New playlist: "+ month_playlist_id+ " - "+ playlist_url)
 
-        return self, month_playlist_id
-
     def get_tracks_on_release_radar_function(self): #return list of tracks to add
         print("Running get_tracks_on_release_radar_function(self)")
         
-        if self.check_for_monthly_playlist_function(self)[1]:
-            self = self.create_monthly_playlist_function(self)
-        else:
-            self = self.check_for_monthly_playlist_function(self)[0]
+        # if self.check_for_monthly_playlist_function():
+        #     self = self.create_monthly_playlist_function(self)
+        # else:
+        #     self = self.check_for_monthly_playlist_function(self)[0]
         
         playlist_id=str(self.playlist_object_id)
 
@@ -136,13 +141,12 @@ class MonthlyPlaylist(object):
                     list_of_tracks_to_add_names.append(song_details)
                     list_of_tracks_to_add_IDs.append(track_id)          
         
-        return self, list_of_tracks_to_add_IDs, list_of_tracks_to_add_names
+        return list_of_tracks_to_add_IDs, list_of_tracks_to_add_names
 
     def add_tracks_to_monthly_playlist_function(self):
         print("Running add_tracks_to_monthly_playlist_function(self)")
 
-        self = self.get_tracks_on_release_radar_function(self)[0]
-
+        list_of_tracks_to_add_IDs = self.get_tracks_on_release_radar_function(self)[0]
         playlist_id=str(self.playlist_object_id)
 
         if list_of_tracks_to_add_IDs:
@@ -152,22 +156,25 @@ class MonthlyPlaylist(object):
         else:
             print("Nothing to add")
 
-        return self, "ok"
+        return "ok"
 
 #################################################################################################################################################################################
 ### calling function
+
 mp = MonthlyPlaylist
 
-mp.make_playlist_name_function(self=MonthlyPlaylist)
+# mp.make_playlist_name_function(self=MonthlyPlaylist)
 
-mp.check_for_monthly_playlist_function(self=MonthlyPlaylist)
+# playlist_info = mp.make_playlist_name_function(self=MonthlyPlaylist)
 
-if mp.check_for_monthly_playlist_function(self=MonthlyPlaylist)[1]:
+# mp.check_for_monthly_playlist_function(playlist_info)
+
+if mp.check_for_monthly_playlist_function(self=MonthlyPlaylist):
     mp.create_monthly_playlist_function(self=MonthlyPlaylist)
     print("New playlist created.")
 else:
     print("No new playlist required.")
 
-mp.get_tracks_on_release_radar_function(self=MonthlyPlaylist)
+#mp.get_tracks_on_release_radar_function(self=MonthlyPlaylist)
 
 mp.add_tracks_to_monthly_playlist_function(self=MonthlyPlaylist)
