@@ -1,3 +1,8 @@
+### TODO: Add error handline
+### TODO: Add unit tests
+### TODO: host to run weekly    
+### TODO: Add section to undownload prev month playlists from all hardwar
+
 ##################################################################################################################################################################################
 #### libraries
 import spotipy
@@ -33,7 +38,6 @@ class MonthlyPlaylist:
         self.playlist_object_description = playlist_object_description
         self.playlist_object_id = playlist_object_id
     
-    # pass
 ##################################################################################################################################################################################
 #### fuctions
     
@@ -54,24 +58,17 @@ class MonthlyPlaylist:
         playlist_name=year + "." + month_no + " " + month_name
         playlist_description="Monthly playlist for "+ month_name + " " +year
 
-        #self = MonthlyPlaylist(playlist_name, playlist_description, 0)
         self.playlist_object_title = playlist_name
         self.playlist_object_description = playlist_description
         self.playlist_object_id = 0
 
     def check_for_monthly_playlist_function(self): #check if playlist for the month aready exists
         print("Running check_for_monthly_playlist_function(self)")
-        
-
-        # self = self.make_playlist_name_function(self)
-
-        # playlist_name_for_lookup = str(self.playlist_object_title)
 
         need_to_create = True
         playlist_info = self.make_playlist_name_function(self)
 
         playlist_name_for_lookup = str(self.playlist_object_title)
-### undownload prev month playlists from all hardware    
         all_playlists = sp.current_user_playlists(limit=50, offset=0)
 
         for i, playlist in enumerate(all_playlists['items']):
@@ -92,8 +89,6 @@ class MonthlyPlaylist:
     def create_monthly_playlist_function(self): #create monthly playlist
         print("Running create_monthly_playlist_function(self)")
         
-        # self = self.make_playlist_name_function(self)
-        
         playlist_name = str(self.playlist_object_title)
         playlist_description=str(self.playlist_object_description)
 
@@ -106,11 +101,6 @@ class MonthlyPlaylist:
 
     def get_tracks_on_release_radar_function(self): #return list of tracks to add
         print("Running get_tracks_on_release_radar_function(self)")
-        
-        # if self.check_for_monthly_playlist_function():
-        #     self = self.create_monthly_playlist_function(self)
-        # else:
-        #     self = self.check_for_monthly_playlist_function(self)[0]
         
         playlist_id=str(self.playlist_object_id)
 
@@ -159,22 +149,14 @@ class MonthlyPlaylist:
         return "ok"
 
 #################################################################################################################################################################################
-### calling function
+### calling functions
 
 mp = MonthlyPlaylist
-
-# mp.make_playlist_name_function(self=MonthlyPlaylist)
-
-# playlist_info = mp.make_playlist_name_function(self=MonthlyPlaylist)
-
-# mp.check_for_monthly_playlist_function(playlist_info)
 
 if mp.check_for_monthly_playlist_function(self=MonthlyPlaylist):
     mp.create_monthly_playlist_function(self=MonthlyPlaylist)
     print("New playlist created.")
 else:
     print("No new playlist required.")
-
-#mp.get_tracks_on_release_radar_function(self=MonthlyPlaylist)
 
 mp.add_tracks_to_monthly_playlist_function(self=MonthlyPlaylist)
