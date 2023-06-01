@@ -1,5 +1,5 @@
 <!-- Move to /Library/LaunchDaemons/ with following CLI command
-sudo mv com.example.weeklytask.plist /Library/LaunchDaemons/ -->
+sudo mv discover_weekly_on_monthly_playlist /Library/LaunchDaemons/ -->
 
 
 <?xml version="1.0" encoding="UTF-8"?>
