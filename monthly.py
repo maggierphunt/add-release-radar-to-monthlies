@@ -5,14 +5,17 @@
 
 ##################################################################################################################################################################################
 #### libraries
+import os
+if __name__ == '__main__':
+    os.environ['PORT'] = '8080'
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
-import os
 from os import getenv
 from datetime import date
 
 ##################################################################################################################################################################################
 #### Spotify params
+
 spotify_client_id = os.getenv('SPOTIPY_CLIENT_ID', 'client_id')
 spotify_secret = os.getenv('SPOTIPY_CLIENT_SECRET', 'secret')
 spotify_redirect_uri = os.getenv('SPOTIPY_REDIRECT_URI', 'redirect_uri')
@@ -27,7 +30,6 @@ sp.trace = True
 user_id = sp.me()['id']
 list_of_tracks_to_add_IDs=[]
 list_of_tracks_to_add_names=[]
-
 
 ##################################################################################################################################################################################
 #### class definition
