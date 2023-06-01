@@ -1,5 +1,5 @@
 <!-- Move to /Library/LaunchDaemons/ with following CLI command
-sudo mv discover_weekly_on_monthly_playlist /Library/LaunchDaemons/ -->
+sudo mv discover_weekly_on_monthly_playlist.xml /Library/LaunchDaemons/ -->
 
 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -7,7 +7,7 @@ sudo mv discover_weekly_on_monthly_playlist /Library/LaunchDaemons/ -->
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>discover_weekly_on_monthly_playlist</string>
+    <string>discover_weekly_on_monthly_playlist.xml</string>
     <key>ProgramArguments</key>
     <array>
         <string>/Users/maggie.hunt/Documents/Coding_Projects/Monthly_Spotipy/add-release-radar-to-monthlies/run_monthly.sh</string>
