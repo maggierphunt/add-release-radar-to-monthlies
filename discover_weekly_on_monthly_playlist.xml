@@ -1,5 +1,5 @@
 <!-- Move to /Library/LaunchDaemons/ with following CLI command
-sudo mv discover_weekly_on_monthly_playlist.xml /Library/LaunchAgents/ -->
+sudo cp discover_weekly_on_monthly_playlist.xml /Library/LaunchAgents/ -->
 
 
 <?xml version="1.0" encoding="UTF-8"?>
