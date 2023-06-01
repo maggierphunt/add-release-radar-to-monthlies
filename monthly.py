@@ -16,7 +16,7 @@ from datetime import date
 spotify_client_id = os.getenv('SPOTIPY_CLIENT_ID', 'client_id')
 spotify_secret = os.getenv('SPOTIPY_CLIENT_SECRET', 'secret')
 spotify_redirect_uri = os.getenv('SPOTIPY_REDIRECT_URI', 'redirect_uri')
-spotify_api_url = os.getenv('api_url', 'api_url')
+spotify_api_url = 'https://api.spotify.com'
 release_radar_id = os.getenv('release_radar_id', 'release_radar_id')
 
 ##################################################################################################################################################################################
